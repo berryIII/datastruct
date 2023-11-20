@@ -69,11 +69,41 @@ void bubbleSort(int nums[],int n){
     }
 }
 
+// 快排的核心部分，以nums[l]为基准，将nums[l,r]分为两部分
+int partition(int nums[],int l,int r){
+    int key=nums[l];
+    int i=l,j=r+1;
+    while(i+1<j){
+        if(nums[i+1]<=key){
+            i+=1;
+        }else{
+            swap(nums,i+1,--j);
+        }
+    }
+    swap(nums,l,i);
+    return i;
+}
+
+void quickSort0(int nums[],int l,int r){
+    if(l<r){
+        int q=partition(nums,l,r);
+        quickSort0(nums,l,q-1);
+        quickSort0(nums,q+1,r);
+    }
+}
+
+// 快速排序，O(n*logn)，S=O(1)，不稳定排序
+void quickSort(int nums[],int n){
+    quickSort0(nums,0,n-1);
+}
+
+
+
 int main(int argc,char* argv[]) {
-    int n=15;
+    int n=1;
     int nums[n];
     generator(nums,n);
-    bubbleSort(nums,n);
+    quickSort(nums,n);
     printNums(nums,n);
     return 0;
 }
