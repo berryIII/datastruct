@@ -1,4 +1,4 @@
-# include <stdio.h>
+x# include <stdio.h>
 # include <stdlib.h>
 # define M 100
 
@@ -58,8 +58,7 @@ void inorder1(BTREE root) {
     BTREE stack[M];
     int top=-1;
     while (cur!=NULL||top!=-1) {
-        while (cur!=NULL)
-        {
+        while (cur!=NULL){
             stack[++top]=cur;
             cur=cur->left;
         }

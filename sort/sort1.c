@@ -98,12 +98,49 @@ void quickSort(int nums[],int n){
 }
 
 
+// 归并排序，T=O(n*logn)，S=O(n)，稳定排序
+// TODO，基于链表的归并排序
+void mergeSort0(int nums[],int l,int r){
+    if(l<r){
+        int q=l+(r-l)/2;
+        mergeSort0(nums,l,q);
+        mergeSort0(nums,q+1,r);
+        int left[r-l+1];
+        int right[r-l+1];
+        for(int i=l;i<=q;i++){
+            left[i-l]=nums[i];
+        }
+        for(int i=q+1;i<=r;i++){
+            right[i-q-1]=nums[i];
+        }
+        int j1=0,j2=0;
+        int n1=q-l+1,n2=r-q;
+        for(int i=l;i<=r;i++){
+            if(j1<n1&&j2<n2){
+                if(left[j1]<right[j2]){
+                    nums[i]=left[j1++];
+                }else{
+                    nums[i]=right[j2++];
+                }
+            }else if(j1<n1){
+                nums[i]=left[j1++];
+            }else{
+                nums[i]=right[j2++];
+            }
+        }
+    }
+}
+
+void mergeSort(int nums[],int n){
+    mergeSort0(nums,0,n-1);
+}
+
 
 int main(int argc,char* argv[]) {
-    int n=1;
+    int n=15;
     int nums[n];
     generator(nums,n);
-    quickSort(nums,n);
+    mergeSort(nums,n);
     printNums(nums,n);
     return 0;
 }
